@@ -1,10 +1,10 @@
 package logic;
 
 class Node {
-    private String value;
+    private int value;
     private Node left;
     private Node right;
-    public Node(String value) {
+    public Node(int value) {
         this.value=value;
         left=null;
         right=null;
@@ -18,8 +18,8 @@ class Node {
 
     public void setRight(Node right) {this.right = right;}
 
-    public String getValue() {return value;}
+    public int getValue() {return value;}
 
-    public void setValue(String value) {this.value = value;}
+    public void setValue(int value) {this.value = value;}
 
 }

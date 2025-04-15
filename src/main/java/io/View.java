@@ -11,27 +11,32 @@ public class View {
         int option=1;
         while(option!=0){
             System.out.println("""
-                1.
-                2.
-                3.
-                4.
-                5.додати 10^5 елементів
-                6.додати 10^6 елементів
+                1. add element
+                2. remove element
+                3. show tree
+                4. show root
+                5.add 10^5 elements
+                6.add 10^6 elements
                 0. Exit
                 """);
             option=read.nextInt();
+            int element;
             switch(option) {
                 case 1:
-
+                    System.out.println("Enter element to add:");
+                    element = read.nextInt();
+                    tree.add(element);
                     break;
                 case 2:
-
+                    System.out.println("Enter element to remove:");
+                    element = read.nextInt();
+                    System.out.println(tree.remove(element));
                     break;
                 case 3:
-
+                    System.out.println(tree.show());
                     break;
                 case 4:
-
+                    System.out.println(tree.showRoot());
                     break;
                 case 5:
                     System.out.println("час потрібний для додавання 10^5 елементів: "+
@@ -49,8 +54,8 @@ public class View {
         Random rand=new Random();
         long start=System.currentTimeMillis();
         for (int i = 0; i < n; i++) {
-            int t=rand.nextInt(100);
-            tree.add(String.valueOf(t));
+            int t=rand.nextInt(10000000);
+            tree.add(t);
         }
         long end=System.currentTimeMillis();
         return end-start;
