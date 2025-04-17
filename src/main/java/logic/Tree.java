@@ -125,16 +125,73 @@ public class Tree {
 
     private int showHeightRecursion(Node node, int currentHeight,int maxHeight) {
         if (node.getLeft()!=null) {
-            currentHeight++;
-            int temp=showHeightRecursion(node.getLeft(),currentHeight,maxHeight);
+            int temp=showHeightRecursion(node.getLeft(),currentHeight+1,maxHeight);
             if (temp>maxHeight) maxHeight=temp;
         }
         if (node.getRight()!=null) {
-            currentHeight++;
-            int temp=showHeightRecursion(node.getRight(),currentHeight,maxHeight);
+            int temp=showHeightRecursion(node.getRight(),currentHeight+1,maxHeight);
             if (temp>maxHeight) maxHeight=temp;
         }
         if(currentHeight>maxHeight){maxHeight=currentHeight;}
         return maxHeight;
+    }
+
+    public String checkTreeForBalance() {
+        if (root == null) return "root null";
+        else if(checkTreeForBalanceRecursion(root)) return "tree balanced";
+        else return "tree not balanced";
+    }
+
+    private boolean checkTreeForBalanceRecursion(Node node) {
+        int left = 0, right = 0;
+        if(node.getLeft()!=null)
+            left = showHeightRecursion(node.getLeft(), 1, -1);
+        if(node.getRight()!=null)
+            right = showHeightRecursion(node.getRight(), 1, -1);
+        if(Math.abs(left-right)>1)return false;
+        boolean bool=true;
+        if (node.getLeft()!=null) bool=checkTreeForBalanceRecursion(node.getLeft());
+        if (node.getRight()!=null && bool) bool=checkTreeForBalanceRecursion(node.getRight());
+        return bool;
+    }
+
+    public String makeTreeBalanced() {
+        if (root == null) return "root null";
+        else makeTreeBalancedRecursion(root);
+        return "tree balanced successfully";
+    }
+
+    private void makeTreeBalancedRecursion(Node node) {
+        boolean bool=true;
+        while (bool) {
+            int left = 0, right = 0;
+            if (node.getLeft() != null)
+                left = showHeightRecursion(node.getLeft(), 1, -1);
+            if (node.getRight() != null)
+                right = showHeightRecursion(node.getRight(), 1, -1);
+            if (Math.abs(right - left) > 1) {
+                Node nodeR=node.getRight();
+                Node nodeL=node.getLeft();
+                if (left < right) {
+                    node.setRight(node.getRight().getRight());
+                    nodeR.setRight(nodeR.getLeft());
+                    nodeR.setLeft(nodeL);
+                    node.setLeft(nodeR);
+                    int temp=node.getValue();
+                    node.setValue(node.getLeft().getValue());
+                    node.getLeft().setValue(temp);
+                } else {
+                    node.setLeft(node.getLeft().getLeft());
+                    nodeL.setLeft(nodeL.getRight());
+                    nodeL.setRight(nodeR);
+                    node.setRight(nodeL);
+                    int temp=node.getValue();
+                    node.setValue(node.getRight().getValue());
+                    node.getRight().setValue(temp);
+                }
+            }else bool=false;
+        }
+        if (node.getLeft()!=null) makeTreeBalancedRecursion(node.getLeft());
+        if (node.getRight()!=null) makeTreeBalancedRecursion(node.getRight());
     }
 }

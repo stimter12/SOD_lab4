@@ -16,8 +16,10 @@ public class ViewTree {
                 3. show tree
                 4. show root
                 5. show height
-                6.add 10^5 elements
-                7.add 10^6 elements
+                6. checking the balance of a tree
+                7. make tree balanced
+                8. add 10^5 elements
+                9. add 10^6 elements
                 0. Exit
                 """);
             option=read.nextInt();
@@ -43,10 +45,16 @@ public class ViewTree {
                     System.out.println(tree.showHeight());
                     break;
                 case 6:
+                    System.out.println(tree.checkTreeForBalance());
+                    break;
+                case 7:
+                    System.out.println(tree.makeTreeBalanced());
+                    break;
+                case 8:
                     System.out.println("час потрібний для додавання 10^5 елементів: "+
                             calculateTimeForAddNElements(10000, tree)+" мілісекунд");
                     break;
-                case 7:
+                case 9:
                     System.out.println("час потрібний для додавання 10^6 елементів: "+
                             calculateTimeForAddNElements(100000, tree)+" мілісекунд");
                     break;
