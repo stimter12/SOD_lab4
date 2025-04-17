@@ -27,12 +27,6 @@ public class Tree {
             }
         }
     }
-    
-    private int compare(String value, String value1) {
-        value=value.toLowerCase();
-        value1=value1.toLowerCase();
-        return value.compareTo(value1);
-    }
 
     public List<Integer> show() {
         if (root==null) {return null;}
@@ -43,7 +37,7 @@ public class Tree {
     }
 
     private List<Integer> recursionShow(Node node, List<Integer> res) {
-        if (node.getLeft()!=null) recursionShow(node.getLeft(),res);
+        if (node.getLeft()!=null) res=recursionShow(node.getLeft(),res);
         res.add(node.getValue());
         if (node.getRight()!=null) res=recursionShow(node.getRight(),res);
         return res;
@@ -83,9 +77,9 @@ public class Tree {
             else if(node.getRight()!=null)node.setValue(searchLeftestOfRight(node));
             return true;
         }else if (element<node.getValue()) {
-                if(node.getLeft()!=null) recursionRemove(node.getLeft(),element);
+                if(node.getLeft()!=null) return recursionRemove(node.getLeft(), element);
             }else {
-                if(node.getRight()!=null) recursionRemove(node.getRight(),element);
+                if(node.getRight()!=null) return recursionRemove(node.getRight(),element);
             }
         return false;
     }
@@ -97,10 +91,12 @@ public class Tree {
             return value;
         }else{
             node=node.getRight();
-            while(node.getLeft()!=null){
+            while(node.getLeft().getLeft()!=null){
                 node=node.getLeft();
             }
-            return node.getValue();
+            int res = node.getLeft().getValue();
+            node.setLeft(null);
+            return res;
         }
     }
 
@@ -111,10 +107,12 @@ public class Tree {
             return value;
         }else{
             node=node.getLeft();
-            while(node.getRight()!=null){
+            while(node.getRight().getRight()!=null){
                 node=node.getRight();
             }
-            return node.getValue();
+            int res = node.getRight().getValue();
+            node.setRight(null);
+            return res;
         }
     }
 }

@@ -4,7 +4,7 @@ import logic.Tree;
 
 import java.util.*;
 
-public class View {
+public class ViewTree {
     public static void menu() {
         Tree tree=new Tree();
         Scanner read=new Scanner(System.in);
@@ -54,7 +54,7 @@ public class View {
         Random rand=new Random();
         long start=System.currentTimeMillis();
         for (int i = 0; i < n; i++) {
-            int t=rand.nextInt(10000000);
+            int t=rand.nextInt(100000);
             tree.add(t);
         }
         long end=System.currentTimeMillis();
