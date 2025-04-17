@@ -115,4 +115,26 @@ public class Tree {
             return res;
         }
     }
+
+    public int showHeight() {
+        if (root == null) return 0;
+        else {
+            return showHeightRecursion(root,1,-1);
+        }
+    }
+
+    private int showHeightRecursion(Node node, int currentHeight,int maxHeight) {
+        if (node.getLeft()!=null) {
+            currentHeight++;
+            int temp=showHeightRecursion(node.getLeft(),currentHeight,maxHeight);
+            if (temp>maxHeight) maxHeight=temp;
+        }
+        if (node.getRight()!=null) {
+            currentHeight++;
+            int temp=showHeightRecursion(node.getRight(),currentHeight,maxHeight);
+            if (temp>maxHeight) maxHeight=temp;
+        }
+        if(currentHeight>maxHeight){maxHeight=currentHeight;}
+        return maxHeight;
+    }
 }
