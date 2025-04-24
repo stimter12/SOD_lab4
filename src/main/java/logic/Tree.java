@@ -29,11 +29,8 @@ public class Tree {
     }
 
     public List<Integer> show() {
-        if (root==null) {return null;}
-        else {
-            List<Integer> result = new ArrayList<>();
-            return recursionShow(root,result);
-        }
+        if (root==null) return null;
+        return recursionShow(root,new ArrayList<>());
     }
 
     private List<Integer> recursionShow(Node node, List<Integer> res) {
@@ -95,7 +92,7 @@ public class Tree {
                 node=node.getLeft();
             }
             int res = node.getLeft().getValue();
-            node.setLeft(null);
+            node.setLeft(node.getLeft().getRight());
             return res;
         }
     }
@@ -111,7 +108,7 @@ public class Tree {
                 node=node.getRight();
             }
             int res = node.getRight().getValue();
-            node.setRight(null);
+            node.setRight(node.getRight().getLeft());
             return res;
         }
     }
@@ -155,43 +152,4 @@ public class Tree {
         return bool;
     }
 
-    public String makeTreeBalanced() {
-        if (root == null) return "root null";
-        else makeTreeBalancedRecursion(root);
-        return "tree balanced successfully";
-    }
-
-    private void makeTreeBalancedRecursion(Node node) {
-        boolean bool=true;
-        while (bool) {
-            int left = 0, right = 0;
-            if (node.getLeft() != null)
-                left = showHeightRecursion(node.getLeft(), 1, -1);
-            if (node.getRight() != null)
-                right = showHeightRecursion(node.getRight(), 1, -1);
-            if (Math.abs(right - left) > 1) {
-                Node nodeR=node.getRight();
-                Node nodeL=node.getLeft();
-                if (left < right) {
-                    node.setRight(node.getRight().getRight());
-                    nodeR.setRight(nodeR.getLeft());
-                    nodeR.setLeft(nodeL);
-                    node.setLeft(nodeR);
-                    int temp=node.getValue();
-                    node.setValue(node.getLeft().getValue());
-                    node.getLeft().setValue(temp);
-                } else {
-                    node.setLeft(node.getLeft().getLeft());
-                    nodeL.setLeft(nodeL.getRight());
-                    nodeL.setRight(nodeR);
-                    node.setRight(nodeL);
-                    int temp=node.getValue();
-                    node.setValue(node.getRight().getValue());
-                    node.getRight().setValue(temp);
-                }
-            }else bool=false;
-        }
-        if (node.getLeft()!=null) makeTreeBalancedRecursion(node.getLeft());
-        if (node.getRight()!=null) makeTreeBalancedRecursion(node.getRight());
-    }
 }
